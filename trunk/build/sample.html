@@ -1,0 +1,69 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>~\Local Settings\temp\tmpsd2jjq.tmp.html</title>
+<meta name="Generator" content="Vim/7.2">
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+</head>
+<body bgcolor="#ffffff" text="#000000"><font face="monospace">
+<font color="#a020f0">from</font>&nbsp;optparse <font color="#a020f0">import</font>&nbsp;OptionParser<br>
+<font color="#a020f0">from</font>&nbsp;distutils.file_util <font color="#a020f0">import</font>&nbsp;*<br>
+<font color="#a020f0">import</font>&nbsp;os<br>
+<font color="#a020f0">import</font>&nbsp;tempfile<br>
+<br>
+<font color="#804040"><b>def</b></font>&nbsp;<font color="#008080">main</font>():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;usage = '<font color="#ff00ff">usage: %prog [options]</font>'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;version = '''<font color="#ff00ff">%prog 0.1 Created By JTianLing</font><br>
+<font color="#ff00ff">Any Question could be sent to JTianLing{at}Gmail.com,</font><br>
+<font color="#ff00ff">and any advice or any bug report is appreciated too.</font>'''<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parser = OptionParser(usage, version = version)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parser.add_option('<font color="#ff00ff">-f</font>', '<font color="#ff00ff">--filename</font>', metavar = '<font color="#ff00ff">FILE</font>', dest = '<font color="#ff00ff">filename</font>', <br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;help = '<font color="#ff00ff">Write output to FILE and save it.</font>')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parser.add_option('<font color="#ff00ff">-t</font>', '<font color="#ff00ff">--syntax</font>', action = '<font color="#ff00ff">store</font>',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type = '<font color="#ff00ff">string</font>', dest = '<font color="#ff00ff">syntax</font>',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default = '<font color="#ff00ff"></font>',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;help = '<font color="#ff00ff">Set the code syntax type</font>')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parser.add_option('<font color="#ff00ff">-c</font>', '<font color="#ff00ff">--color</font>', action = '<font color="#ff00ff">store</font>',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type = '<font color="#ff00ff">string</font>', dest = '<font color="#ff00ff">color</font>',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default = '<font color="#ff00ff">default</font>',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;help = '<font color="#ff00ff">Set the code highlight color template</font>')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;parser.add_option('<font color="#ff00ff">-n</font>', action= '<font color="#ff00ff">store_true</font>', dest = '<font color="#ff00ff">isNumber</font>',<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;default = False,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;help = '<font color="#ff00ff">Is output with line number.</font>')<br>
+&nbsp;&nbsp;&nbsp;&nbsp;(options, args) = parser.parse_args()<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;filename = tempfile.mktemp() + '<font color="#ff00ff">.tmp</font>'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cboutStr = '<font color="#ff00ff">cbout &gt; </font>'&nbsp;+ filename<br>
+&nbsp;&nbsp;&nbsp;&nbsp;os.system(cboutStr)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;syn = options.syntax<br>
+&nbsp;&nbsp;&nbsp;&nbsp;color = options.color<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"># ugly but useful vim's format code</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;vimCmd = '<font color="#ff00ff">gvim -c &quot;:syntax on|:color </font>'&nbsp;+ color + '<font color="#ff00ff">|:set syn=</font>'&nbsp;+ syn<font color="#6a5acd">\</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp; + '<font color="#ff00ff">|:set nu</font>'&nbsp;+ (''&nbsp;<font color="#804040"><b>if</b></font>&nbsp;options.isNumber <font color="#804040"><b>else</b></font>&nbsp;'<font color="#ff00ff">!</font>') + '<font color="#ff00ff">|TOhtml&quot; -c &quot;:w|:qa&quot; </font>'&nbsp;+ filename<br>
+&nbsp;&nbsp;&nbsp;&nbsp;os.system(vimCmd) <br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#804040"><b>print</b></font>(vimCmd)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;newFilename = filename + '<font color="#ff00ff">.html</font>'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;cbinStr = '<font color="#ff00ff">more </font>'&nbsp;+ newFilename + '<font color="#ff00ff">&nbsp;| cbin</font>'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;os.system(cbinStr)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#0000ff"># Del the temp file when that's needed</font><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#804040"><b>if</b></font>&nbsp;options.filename:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;move_file(newFilename, '<font color="#ff00ff">./</font>'&nbsp;+ options.filename)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<font color="#804040"><b>else</b></font>:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.remove(newFilename)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;os.remove(filename)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+<font color="#804040"><b>if</b></font>&nbsp;__name__ == '<font color="#ff00ff">__main__</font>':<br>
+&nbsp;&nbsp;&nbsp;&nbsp;main()<br>
+<br>
+<br>
+<br>
+</font></body>
+</html>
