@@ -26,31 +26,22 @@ and any advice or any bug report is appreciated too.'''
                       help = 'Is output with line number.')
     (options, args) = parser.parse_args()
     
-    filename = tempfile.mktemp() + '.tmp'
-        
-    cboutStr = 'cbout > ' + filename
-    os.system(cboutStr)
-    
     syn = options.syntax
     color = options.color
     
     # ugly but useful vim's format code
-    vimCmd = 'gvim -c ":syntax on|:color ' + color + '|:set syn=' + syn\
-     + '|:set nu' + ('' if options.isNumber else '!') + '|TOhtml" -c ":w|:qa" ' + filename
-    os.system(vimCmd) 
-    #print(vimCmd)
-    
-    newFilename = filename + '.html'
-    cbinStr = 'more ' + newFilename + ' | cbin'
-    os.system(cbinStr)           
-
-    # Del the temp file when that's needed
-    if options.filename:
-        move_file(newFilename, './' + options.filename)
-    else:
-        os.remove(newFilename)
-        
-    os.remove(filename)
+    pasteFromCB = ' -c ":s/^/\=@*" '
+    setSyntax = ' -c ":syntax on|:set syn= ' + syn + '"'
+    setColor = ' -c ":color ' + color + '"'
+    setLineNumber = ' -c ":set nu' + ('"' if options.isNumber else '!"')
+    toHtml =  ' -c ":TOhtml" '
+    copyToCB = '-c ":norm ggVG*+y" '
+    saveToFile =  (' -c ":w ' + options.filename + '"') if (options.filename == "") else ''
+    quit = ' -c ":qa!"'
+    vimCmd = 'gvim ' +  pasteFromCB +  setSyntax + setColor\
+    		+ setLineNumber + toHtml + copyToCB + saveToFile + quit
+    os.system(vimCmd)
+    print(vimCmd)
     
 if __name__ == '__main__':
     main()
