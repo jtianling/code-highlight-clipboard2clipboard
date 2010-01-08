@@ -30,15 +30,16 @@ and any advice or any bug report is appreciated too.'''
     color = options.color
     
     # ugly but useful vim's format code
-    pasteFromCB = ' -c ":s/^/\=@*" '
-    setSyntax = ' -c ":syntax on|:set syn= ' + syn + '"'
+    setCBLinkToSystem = '-c "set clipboard+=unnamed"'
+    pasteFromCB = ' -c ":norm p" '
+    setSyntax = ' -c ":syntax on|:set syn=' + syn + '"'
     setColor = ' -c ":color ' + color + '"'
     setLineNumber = ' -c ":set nu' + ('"' if options.isNumber else '!"')
     toHtml =  ' -c ":TOhtml" '
-    copyToCB = '-c ":norm ggVG*+y" '
-    saveToFile =  (' -c ":w ' + options.filename + '"') if (options.filename == "") else ''
+    copyToCB = '-c ":norm ggVGy" '
+    saveToFile =  (' -c ":w ' + options.filename + '"') if (options.filename != "") else ''
     quit = ' -c ":qa!"'
-    vimCmd = 'gvim ' +  pasteFromCB +  setSyntax + setColor\
+    vimCmd = 'gvim ' +  setCBLinkToSystem + pasteFromCB +  setSyntax + setColor\
     		+ setLineNumber + toHtml + copyToCB + saveToFile + quit
     os.system(vimCmd)
     print(vimCmd)
