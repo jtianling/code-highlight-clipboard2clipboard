@@ -26,7 +26,7 @@ and any advice or any bug report is appreciated too.'''
                       help = 'Is output with line number.')
     (options, args) = parser.parse_args()
     
-    syn = options.syntax
+    syn = options.syntax.lower()
     color = options.color
     
     # ugly but useful vim's format code
@@ -42,7 +42,7 @@ and any advice or any bug report is appreciated too.'''
     vimCmd = 'gvim ' +  setCBLinkToSystem + pasteFromCB +  setSyntax + setColor\
     		+ setLineNumber + toHtml + copyToCB + saveToFile + quit
     os.system(vimCmd)
-    print(vimCmd)
+    #print(vimCmd)
     
 if __name__ == '__main__':
     main()
