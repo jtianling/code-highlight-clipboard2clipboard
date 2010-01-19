@@ -11,7 +11,8 @@ Any Question could be sent to JTianLing{at}Gmail.com,
 and any advice or any bug report is appreciated too.'''
     
     parser = OptionParser(usage, version = version)
-    parser.add_option('-f', '--filename', metavar = 'FILE', dest = 'filename', 
+    parser.add_option('-f', '--filename', metavar = 'FILE', dest = 'filename',
+                      default = '',
                       help = 'Write output to FILE and save it.')
     parser.add_option('-t', '--syntax', action = 'store',
                       type = 'string', dest = 'syntax',
@@ -40,7 +41,7 @@ and any advice or any bug report is appreciated too.'''
     saveToFile =  (' -c ":w ' + options.filename + '"') if (options.filename != "") else ''
     quit = ' -c ":qa!"'
     vimCmd = 'gvim ' +  setCBLinkToSystem + pasteFromCB +  setSyntax + setColor\
-    		+ setLineNumber + toHtml + copyToCB + saveToFile + quit
+    		+ setLineNumber + toHtml + copyToCB + quit
     os.system(vimCmd)
     #print(vimCmd)
     
